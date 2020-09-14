@@ -79,7 +79,15 @@
       } catch (e) {}
     </script>
   </head>
-  <body class="dca3_body">
+  <body class="" style="background: linear-gradient(
+                      rgba(100, 61, 26, 0.5),
+                      rgba(100, 61, 26,.5)
+              ),
+              url('/images/mandala-bg.jpg');
+              background-blend-mode: multiply;
+              background-position: center;
+              font-size: 16px;
+              width: 100%;">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
@@ -111,10 +119,60 @@
     </script>
 
     <script>
-      var mandalator = "";
+      //var mandalator = "";
+      $(document).on('view', function(e, data) {
+        if (data !== null) {
+          const totSizeLay = parseInt(data.totalSizeLayer);
+          $('.tut2').addClass('show');
+          $('.layer-options').addClass('show')
+          if (data.visibility) {
+            $('.layer-options').removeClass('show')
+            $('.tut2').hide()
+            const numLayer = data.currentLayer            
+            var iNumLayer = parseInt(numLayer);
+            mandalator.paper.project.layers[totSizeLay - iNumLayer].setVisible(false)
+          } else {
+            $('.layer-options').removeClass('show')
+            $('.tut2').hide()
+            const numLayer = data.currentLayer
+            var iNumLayer = parseInt(numLayer);            
+            mandalator.paper.project.layers[totSizeLay - iNumLayer].setVisible(true)
+          }
+        }
+      })
+
+      $(document).on('remove-all-layers', function() {
+        //mandalator.initLayers();
+        mandalator.LayersArray = []
+        mandalator.paper.project.layers.forEach(function(elem) {
+          elem.removeChildren()
+        })
+        mandalator.paper.project.clear()
+        mandalator.paper.project.layers = mandalator.paper.project.layers.reverse();
+        //mandalator.initLayers();
+      })
+
+      $(document).on('delete-single-layer', function(e, data) {
+        const currentLayer = data.currentLayer;        
+        var layerToDelete = 6-currentLayer
+        mandalator.LayersArray[layerToDelete].clearLayer();
+        mandalator.paper.project.layers[layerToDelete].removeChildren();
+      })
+
+      $(document).on('add-layer', function(e, data) {       
+        console.log('add-layer-push = '+data.nbLayer)
+        mandalator.paper.project.layers = mandalator.paper.project.layers.reverse()
+        
+        var newLayer = new layerData(data.nbLayer, '', 10);       
+        mandalator.LayersArray.push(newLayer)        
+        mandalator.initLayers();        
+        //mandalator.reInitalSliders()
+        mandalator.updateLayerList();
+        mandalator.updateLayerOptions();
+        mandalator.setActiveLayer(0)
+      })
 
       $(document).ready(function() {
-
         /*
         CANVAS
          */
@@ -126,6 +184,7 @@
 
         mandalator = new mandalatorView();
         mandalator.init();
+        //window.mandalator = mandalator
 
       });
 
@@ -141,3 +200,4 @@
     </script>
   </body>
 </html>
+<!-- mandalator.paper.project.layers[0].setVisible(true) -->
