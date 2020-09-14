@@ -28,7 +28,7 @@
       <canvas id="paper" style="background:#fff; width: 800px; height: 800px;"></canvas>
     </div>
 
-    <div class="scrollContainer desktop" :class="{show: scrollContainer}">
+    <div class="scrollContainer desktop" :class="{show: scrollContainer}" style="margin-top: 62px; margin-right: 50px;">
       <div class="scrollButtonUp hidden">
         <img src="assets/img/Scroll.svg" />
       </div>
@@ -58,7 +58,7 @@
         <img src="assets/img/Scroll.svg" />
       </div>
     </div>
-    <div class="layer-options tk-museo-sans-rounded desktop" :class="{show: tut3}">
+    <div class="layer-options tk-museo-sans-rounded desktop" :class="{show: tut3}" style="margin-right: 65px">
       <div class="basic-image-options">
         <div class="options-header">
           <div class="current-image animated tada" @click="showScrollContainer">
@@ -327,7 +327,7 @@
             </a>
           </div>
 
-        </div>
+        </div>x
       </div>
       <div class="layers-list-mobile mobile">
         <div class="wrapper topShadow">

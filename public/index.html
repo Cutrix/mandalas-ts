@@ -79,7 +79,15 @@
       } catch (e) {}
     </script>
   </head>
-  <body class="" style="background-color: lightsalmon;">
+  <body class="" style="background: linear-gradient(
+                      rgba(100, 61, 26, 0.5),
+                      rgba(100, 61, 26,.5)
+              ),
+              url('/images/mandala-bg.jpg');
+              background-blend-mode: multiply;
+              background-position: center;
+              font-size: 16px;
+              width: 100%;">
     <noscript>
       <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
